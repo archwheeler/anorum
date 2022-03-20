@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-
+from django.shortcuts import render
 from django.template import loader
 
 from .models import Post
@@ -11,7 +11,7 @@ def index(request):
     context = {
         "latest_posts_list": latest_posts_list,
     }
-    return HttpResponse(template.render(context, request))
+    return render(request, "posts/index.html", context)
 
 
 def post(request, post_id):
