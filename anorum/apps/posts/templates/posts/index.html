@@ -9,7 +9,7 @@
         <h1>New posts</h1>
         <ul>
             {% for post in latest_posts_list %}
-            <li><a href="/posts/{{ post.id }}/">{{ post.content }}</a></li>
+            <li><a href="{% url 'post' post.id %}">{{ post.content }}</a></li>
             {% endfor %}
         </ul>
         {% else %}
