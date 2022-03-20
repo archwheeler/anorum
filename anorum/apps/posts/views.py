@@ -1,5 +1,4 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.template import loader
 
 from .models import Post
@@ -15,5 +14,5 @@ def index(request):
 
 
 def post(request, post_id):
-    response = "post %s"
-    return HttpResponse(response % post_id)
+    post = get_object_or_404(Post, pk=post_id)
+    return render(request, "posts/post.html", {"post": post})
