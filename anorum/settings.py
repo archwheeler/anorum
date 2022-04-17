@@ -72,6 +72,7 @@ WSGI_APPLICATION = "anorum.wsgi.application"
 
 AUTH_USER_MODEL = "main.User"
 
+LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "index"
 LOGOUT_REDIRECT_URL = "index"
 
