@@ -70,6 +70,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "anorum.wsgi.application"
 
+AUTH_USER_MODEL = "main.User"
+
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
