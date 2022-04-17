@@ -1,7 +1,7 @@
 from django.contrib.auth import views as auth_views
 from django.urls import path
 
-from main.views import IndexView
+from main.views import IndexView, RegisterView
 
 urlpatterns = [
     # anorum
@@ -19,4 +19,5 @@ urlpatterns = [
         auth_views.PasswordChangeDoneView.as_view(),
         name="password_change_done",
     ),
+    path("register/", RegisterView.as_view(), name="register"),
 ]
