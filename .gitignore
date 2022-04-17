@@ -1,3 +1,6 @@
 # Python
 __pycache__/
 .venv/
+
+# Django
+db.sqlite3
