@@ -72,6 +72,8 @@ WSGI_APPLICATION = "anorum.wsgi.application"
 
 AUTH_USER_MODEL = "main.User"
 
+LOGIN_REDIRECT_URL = "index"
+
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
