@@ -22,7 +22,7 @@ class Forum(models.Model):
 class Post(models.Model):
     forum = models.ForeignKey(Forum, on_delete=models.CASCADE)
     parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE)
-    body = models.TextField(blank=True, null=True)
+    body = models.CharField(max_length=10000)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
