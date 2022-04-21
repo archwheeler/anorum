@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Create forum{% endblock %}
+
+{% block content %}
+<main>
+    <h1>Create forum</h1>
+
+    <form method="post" action="{% url 'create_forum' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Create forum">
+    </form>
+</main>
+{% endblock %}

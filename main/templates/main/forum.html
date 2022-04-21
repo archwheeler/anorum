@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ forum_name }}{% endblock %}
+
+{% block content %}
+<main>
+    <h1>{{ forum_name }}</h1>
+
+    <ul>
+        {% for post in post_list %}
+            <li>
+                <a href={% url 'post' forum_name post.id %}>
+                    #{{ post.id }} - {{ post.body }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <form method="post" action="{% url 'forum' forum_name %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Create post">
+    </form>
+</main>
+{% endblock %}

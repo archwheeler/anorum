@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ forum_name }} | Post #{{ parent_post.id }}{% endblock %}
+
+{% block content %}
+<main>
+    <p><b>#{{ parent_post.id }}</b></p>
+    <p>{{ parent_post.body }}</p>
+
+    {% for post in child_posts %}
+    <div>
+        <p><b>#{{ post.id }}</b></p>
+        <p>{{ post.body }}</p>
+    </div>
+    {% endfor %}
+
+    <form method="post" action="{% url 'post' forum_name parent_post.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Reply">
+    </form>
+</main>
+{% endblock %}
