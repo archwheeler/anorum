@@ -1,14 +1,26 @@
 from django.contrib.auth import views as auth_views
 from django.urls import path
 
-from main.views import CreateForumView, ForumView, IndexView, PostView, RegisterView
+from main.views import (
+    CreateForumView,
+    CreatePostView,
+    ForumView,
+    IndexView,
+    PostView,
+    RegisterView,
+)
 
 urlpatterns = [
     # anorum
     path("", IndexView.as_view(), name="index"),
     path("create/", CreateForumView.as_view(), name="create_forum"),
     path("a/<slug:forum_name>/", ForumView.as_view(), name="forum"),
-    path("a/<slug:forum_name>/<int:parent_post_id>/", PostView.as_view(), name="post"),
+    path("a/<slug:forum_name>/post/", CreatePostView.as_view(), name="create_post"),
+    path(
+        "a/<slug:forum_name>/post/<int:parent_post_id>/",
+        PostView.as_view(),
+        name="post",
+    ),
     # accounts
     path("login/", auth_views.LoginView.as_view(), name="login"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),

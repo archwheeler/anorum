@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, ListView, TemplateView
 
 from main.forms import CustomUserCreationForm
 from main.models import Forum, Post
@@ -40,10 +40,29 @@ class CreateForumView(LoginRequiredMixin, CreateView):
         return HttpResponseRedirect(reverse_lazy("forum", args=[forum.name]))
 
 
-class ForumView(CreateView):
+class ForumView(ListView):
+    template_name = "main/forum.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        self.forum = get_object_or_404(Forum, name=self.kwargs["forum_name"])
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return Post.objects.filter(
+            forum=self.forum,
+            parent__isnull=True,
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["forum_name"] = self.kwargs["forum_name"]
+        return context
+
+
+class CreatePostView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ["body"]
-    template_name = "main/forum.html"
+    template_name = "main/create_post.html"
 
     def dispatch(self, request, *args, **kwargs):
         self.forum = get_object_or_404(Forum, name=self.kwargs["forum_name"])
@@ -61,10 +80,6 @@ class ForumView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["forum_name"] = self.kwargs["forum_name"]
-        context["post_list"] = Post.objects.filter(
-            forum=self.forum,
-            parent__isnull=True,
-        )
         return context
 
 

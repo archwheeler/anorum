@@ -6,6 +6,8 @@
 <main>
     <h1>{{ forum_name }}</h1>
 
+    <a href="{% url 'create_post' forum_name %}">Create new post</a>
+
     <ul>
         {% for post in post_list %}
             <li>
@@ -15,11 +17,5 @@
             </li>
         {% endfor %}
     </ul>
-
-    <form method="post" action="{% url 'forum' forum_name %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Create post">
-    </form>
 </main>
 {% endblock %}
