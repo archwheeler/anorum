@@ -25,6 +25,16 @@ class Post(models.Model):
     body = models.CharField(max_length=10000)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    identity = models.CharField(max_length=64)
 
     def __str__(self):
         return self.body
+
+
+class ParentPostMetadata(models.Model):
+    parent_post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    identity_step_size = models.IntegerField()
+    identity_count = models.IntegerField()
+
+    def __str__(self):
+        return self.post

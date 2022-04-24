@@ -5,8 +5,11 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, TemplateView
 
+from random import randrange
+
 from main.forms import CustomUserCreationForm
-from main.models import Forum, Post
+from main.identities import IDENTITIES
+from main.models import Forum, Post, ParentPostMetadata
 
 # Create your views here.
 class IndexView(TemplateView):
@@ -72,7 +75,19 @@ class CreatePostView(LoginRequiredMixin, CreateView):
         parent_post = form.save(commit=False)
         parent_post.forum = self.forum
         parent_post.owner = self.request.user
+
+        identity_step_size = randrange(len(IDENTITIES))
+        parent_post.identity = IDENTITIES[identity_step_size]
+
         parent_post.save()
+
+        parent_post_metadata = ParentPostMetadata(
+            parent_post=parent_post,
+            identity_step_size=identity_step_size,
+            identity_count=1,
+        )
+        parent_post_metadata.save()
+
         return HttpResponseRedirect(
             reverse_lazy("post", args=[self.forum.name, parent_post.id])
         )
@@ -103,7 +118,32 @@ class PostView(CreateView):
         child_post.forum = self.parent_post.forum
         child_post.owner = self.request.user
         child_post.parent = self.parent_post
+
+        previous_post = (
+            self.parent_post
+            if self.parent_post.owner == self.request.user
+            else Post.objects.filter(
+                parent=self.parent_post, owner=self.request.user
+            ).first()
+        )
+        if previous_post:
+            child_post.identity = previous_post.identity
+        else:
+            parent_post_metadata = ParentPostMetadata.objects.get(
+                parent_post=self.parent_post
+            )
+            parent_post_metadata.identity_count += 1
+            if parent_post_metadata.identity_count > len(IDENTITIES):
+                child_post.identity = f"user #{parent_post_metadata.identity_count}"
+            else:
+                child_post.identity = IDENTITIES[
+                    parent_post_metadata.identity_count
+                    * parent_post_metadata.identity_step_size
+                    % len(IDENTITIES)
+                ]
+
         child_post.save()
+
         return HttpResponseRedirect(
             reverse_lazy("post", args=[self.kwargs["forum_name"], self.parent_post.id])
         )
