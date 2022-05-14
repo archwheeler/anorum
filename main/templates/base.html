@@ -8,6 +8,21 @@
     </head>
 
     <body>
+        <nav>
+            <ul>
+                <li><a href="{% url 'index' %}">anorum</a></li>
+            </ul>
+            {% if not view.kwargs.hide_navbar_account %}
+            <ul>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Log out</a></li>
+                {% else %}
+                <li><a href="{% url 'login' %}">Log in</a></li>
+                {% endif %}
+            </ul>
+            {% endif %}
+        </nav>
+
         {% block content %}
         {% endblock %}
     </body>
