@@ -176,3 +176,7 @@ class PostView(CreateView):
         context["parent_post"] = self.parent_post
         context["child_posts"] = Post.objects.filter(parent=self.parent_post)
         return context
+
+
+class AccountView(LoginRequiredMixin, TemplateView):
+    template_name = "registration/account.html"

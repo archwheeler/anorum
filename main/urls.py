@@ -2,6 +2,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import path
 
 from main.views import (
+    AccountView,
     CreateForumView,
     CreatePostView,
     ForumView,
@@ -31,6 +32,13 @@ urlpatterns = [
     #     name="post",
     # ),
     # accounts
+    path(
+        "account/",
+        AccountView.as_view(),
+        {"hide_navbar_account": True},
+        name="account",
+    ),
+
     path(
         "login/",
         auth_views.LoginView.as_view(),
