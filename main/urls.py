@@ -13,7 +13,7 @@ from main.views import (
 urlpatterns = [
     # anorum
     path("", IndexView.as_view(), name="index"),
-    path("create/", CreateForumView.as_view(), name="create_forum"),
+    # path("create/", CreateForumView.as_view(), name="create_forum"),
     path("a/<slug:forum_name>/", ForumView.as_view(), name="forum"),
     path("a/<slug:forum_name>/post/", CreatePostView.as_view(), name="create_post"),
     path(
