@@ -14,6 +14,7 @@
     </div>
     {% endfor %}
 
+    {% if user.is_authenticated %}
     <form method="post" action="{% url 'post' parent_post.id %}">
         {% csrf_token %}
         {{ form.non_field_errors }}
@@ -23,5 +24,11 @@
         </div>
         <input type="submit" value="Reply">
     </form>
+    {% else %}
+    <p>
+        <a href="{% url 'login' %}?next={{ request.path }}">Log in</a>
+        to reply.
+    </p>
+    {% endif %}
 </main>
 {% endblock %}
