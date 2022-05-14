@@ -8,7 +8,22 @@
 
     <form method="post" action="{% url 'register' %}">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.non_field_errors }}
+        <div>
+            {{ form.username.errors }}
+            <label for="id_username">Username:</label>
+            {{ form.username }}
+        </div>
+        <div>
+            {{ form.password1.errors }}
+            <label for="id_password1">Password:</label>
+            {{ form.password1 }}
+        </div>
+        <div>
+            {{ form.password2.errors }}
+            <label for="id_password2">Password confirmation:</label>
+            {{ form.password2 }}
+        </div>
         <input type="submit" value="Register">
     </form>
 </main>

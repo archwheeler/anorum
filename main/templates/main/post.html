@@ -16,7 +16,11 @@
 
     <form method="post" action="{% url 'post' parent_post.id %}">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.non_field_errors }}
+        <div>
+            {{ form.body.errors }}
+            {{ form.body }}
+        </div>
         <input type="submit" value="Reply">
     </form>
 </main>

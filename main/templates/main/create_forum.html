@@ -8,7 +8,12 @@
 
     <form method="post" action="{% url 'create_forum' %}">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.non_field_errors }}
+        <div>
+            {{ form.name.errors }}
+            <label for="id_name">Name:</label>
+            {{ form.name }}
+        </div>
         <input type="submit" value="Create forum">
     </form>
 </main>

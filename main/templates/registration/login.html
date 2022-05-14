@@ -19,7 +19,17 @@
 
     <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.non_field_errors }}
+        <div>
+            {{ form.username.errors }}
+            <label for="id_username">Username:</label>
+            {{ form.username }}
+        </div>
+        <div>
+            {{ form.password.errors }}
+            <label for="id_password">Password:</label>
+            {{ form.password }}
+        </div>
         <input type="hidden" name="next" value="{{ next }}">
         <input type="submit" value="Login">
     </form>
