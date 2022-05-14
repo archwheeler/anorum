@@ -4,8 +4,10 @@ from django.db import IntegrityError, transaction
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views.generic import CreateView, ListView, TemplateView
 
+from datetime import timedelta
 from random import randrange
 
 from main.forms import CustomUserCreationForm
@@ -55,6 +57,7 @@ class ForumView(ListView):
         return Post.objects.filter(
             forum=self.forum,
             parent__isnull=True,
+            created_at__gte=timezone.now() - timedelta(days=1),
         )
 
     def get_context_data(self, **kwargs):
