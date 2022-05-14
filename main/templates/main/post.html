@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ forum_name }} | Post #{{ parent_post.id }}{% endblock %}
+{% block title %}Post #{{ parent_post.id }}{% endblock %}
 
 {% block content %}
 <main>
@@ -14,7 +14,7 @@
     </div>
     {% endfor %}
 
-    <form method="post" action="{% url 'post' forum_name parent_post.id %}">
+    <form method="post" action="{% url 'post' parent_post.id %}">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Reply">

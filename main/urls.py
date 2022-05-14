@@ -12,15 +12,24 @@ from main.views import (
 
 urlpatterns = [
     # anorum
-    path("", IndexView.as_view(), name="index"),
-    # path("create/", CreateForumView.as_view(), name="create_forum"),
-    path("a/<slug:forum_name>/", ForumView.as_view(), name="forum"),
-    path("a/<slug:forum_name>/post/", CreatePostView.as_view(), name="create_post"),
+    path("", ForumView.as_view(), {"forum_name": "anorum"}, name="index"),
     path(
-        "a/<slug:forum_name>/post/<int:parent_post_id>/",
+        "post/", CreatePostView.as_view(), {"forum_name": "anorum"}, name="create_post"
+    ),
+    path(
+        "post/<int:parent_post_id>/",
         PostView.as_view(),
+        {"forum_name": "anorum"},
         name="post",
     ),
+    # path("create/", CreateForumView.as_view(), name="create_forum"),
+    # path("a/<slug:forum_name>/", ForumView.as_view(), name="forum"),
+    # path("a/<slug:forum_name>/post/", CreatePostView.as_view(), name="create_post"),
+    # path(
+    #     "a/<slug:forum_name>/post/<int:parent_post_id>/",
+    #     PostView.as_view(),
+    #     name="post",
+    # ),
     # accounts
     path("login/", auth_views.LoginView.as_view(), name="login"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),

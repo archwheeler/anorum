@@ -97,7 +97,7 @@ class CreatePostView(LoginRequiredMixin, CreateView):
             user_identity.save()
 
         return HttpResponseRedirect(
-            reverse_lazy("post", args=[self.forum.name, parent_post.id])
+            reverse_lazy("post", args=[parent_post.id])
         )
 
     def get_context_data(self, **kwargs):
@@ -171,7 +171,7 @@ class PostView(CreateView):
             child_post.save()
 
         return HttpResponseRedirect(
-            reverse_lazy("post", args=[self.kwargs["forum_name"], self.parent_post.id])
+            reverse_lazy("post", args=[self.parent_post.id])
         )
 
     def get_context_data(self, **kwargs):
