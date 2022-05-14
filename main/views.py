@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import IntegrityError, transaction
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
@@ -9,7 +10,7 @@ from random import randrange
 
 from main.forms import CustomUserCreationForm
 from main.identities import IDENTITIES
-from main.models import Forum, Post, ParentPostMetadata
+from main.models import Forum, Post, UserIdentity
 
 # Create your views here.
 class IndexView(TemplateView):
@@ -77,16 +78,20 @@ class CreatePostView(LoginRequiredMixin, CreateView):
         parent_post.owner = self.request.user
 
         identity_step_size = randrange(len(IDENTITIES))
-        parent_post.identity = IDENTITIES[identity_step_size]
+        identity = IDENTITIES[identity_step_size]
 
-        parent_post.save()
+        with transaction.atomic():
+            parent_post.identity_step_size = identity_step_size
+            parent_post.identity = IDENTITIES[identity_step_size]
+            parent_post.identity_count = 1
+            parent_post.save()
 
-        parent_post_metadata = ParentPostMetadata(
-            parent_post=parent_post,
-            identity_step_size=identity_step_size,
-            identity_count=1,
-        )
-        parent_post_metadata.save()
+            user_identity = UserIdentity(
+                user=self.request.user,
+                identity=identity,
+                parent_post=parent_post,
+            )
+            user_identity.save()
 
         return HttpResponseRedirect(
             reverse_lazy("post", args=[self.forum.name, parent_post.id])
@@ -119,30 +124,48 @@ class PostView(CreateView):
         child_post.owner = self.request.user
         child_post.parent = self.parent_post
 
-        previous_post = (
-            self.parent_post
-            if self.parent_post.owner == self.request.user
-            else Post.objects.filter(
-                parent=self.parent_post, owner=self.request.user
-            ).first()
-        )
-        if previous_post:
-            child_post.identity = previous_post.identity
-        else:
-            parent_post_metadata = ParentPostMetadata.objects.get(
-                parent_post=self.parent_post
+        try:
+            user_identity = UserIdentity.objects.get(
+                user=self.request.user,
+                parent_post=self.parent_post,
             )
-            parent_post_metadata.identity_count += 1
-            if parent_post_metadata.identity_count > len(IDENTITIES):
-                child_post.identity = f"user #{parent_post_metadata.identity_count}"
-            else:
-                child_post.identity = IDENTITIES[
-                    parent_post_metadata.identity_count
-                    * parent_post_metadata.identity_step_size
-                    % len(IDENTITIES)
-                ]
+        except UserIdentity.DoesNotExist:
+            user_identity = None
+            identity_creation_attempts = 0
+            while user_identity is None and identity_creation_attempts < 3:
+                try:
+                    with transaction.atomic():
+                        self.parent_post.identity_count += 1
+                        self.parent_post.save()
 
-        child_post.save()
+                        if self.parent_post.identity_count <= len(IDENTITIES):
+                            identity = IDENTITIES[
+                                self.parent_post.identity_count
+                                * self.parent_post.identity_step_size
+                                % len(IDENTITIES)
+                            ]
+                        else:
+                            identity = f"user #{self.parent_post.identity_count}"
+
+                        user_identity = UserIdentity(
+                            user=self.request.user,
+                            identity=identity,
+                            parent_post=self.parent_post,
+                        )
+                        user_identity.save()
+
+                except IntegrityError:
+                    self.parent_post.refresh_from_db()
+                    user_identity = None
+
+                identity_creation_attempts += 1
+
+        if user_identity is None:
+            form.add_error(None, "Error occurred while creating comment")
+            return super().form_invalid(form)
+        else:
+            child_post.identity = user_identity.identity
+            child_post.save()
 
         return HttpResponseRedirect(
             reverse_lazy("post", args=[self.kwargs["forum_name"], self.parent_post.id])

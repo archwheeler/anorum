@@ -21,20 +21,28 @@ class Forum(models.Model):
 
 class Post(models.Model):
     forum = models.ForeignKey(Forum, on_delete=models.CASCADE)
-    parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE)
+    parent = models.ForeignKey("self", null=True, on_delete=models.CASCADE)
     body = models.CharField(max_length=10000)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     identity = models.CharField(max_length=64)
+    identity_step_size = models.IntegerField(null=True)
+    identity_count = models.IntegerField(null=True)
 
     def __str__(self):
         return self.body
 
 
-class ParentPostMetadata(models.Model):
+class UserIdentity(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    identity = models.CharField(max_length=64)
     parent_post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    identity_step_size = models.IntegerField()
-    identity_count = models.IntegerField()
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["identity", "parent_post"], name="identity_unique_accross_post"
+            )
+        ]
 
     def __str__(self):
-        return self.post
+        return self.identity
