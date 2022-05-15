@@ -6,7 +6,7 @@
 <main>
     <h1>Create forum</h1>
 
-    <form method="post" action="{% url 'create_forum' %}">
+    <form method="post" action="{% url 'create_forum' %}" autocomplete="off">
         {% csrf_token %}
         {{ form.non_field_errors }}
         <div>

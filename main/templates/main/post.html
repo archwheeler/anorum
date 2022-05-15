@@ -15,7 +15,7 @@
     {% endfor %}
 
     {% if user.is_authenticated %}
-    <form method="post" action="{% url 'post' parent_post.id %}">
+    <form method="post" action="{% url 'post' parent_post.id %}" autocomplete="off">
         {% csrf_token %}
         {{ form.non_field_errors }}
         <div>
