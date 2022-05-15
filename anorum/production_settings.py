@@ -1,5 +1,5 @@
 """
-Test Django settings for anorum project.
+Production Django settings for anorum project.
 """
 
 import os
