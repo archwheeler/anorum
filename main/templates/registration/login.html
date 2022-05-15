@@ -36,7 +36,11 @@
 
     <p>
         Don't have an account?
+        {% if next %}
+        <a href="{% url 'register' %}?next={{ next }}">Register here</a>.
+        {% else %}
         <a href="{% url 'register' %}">Register here</a>.
+        {% endif %}
     </p>
 </main>
 {% endblock %}

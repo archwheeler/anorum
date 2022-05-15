@@ -38,7 +38,6 @@ urlpatterns = [
         {"hide_navbar_account": True},
         name="account",
     ),
-
     path(
         "login/",
         auth_views.LoginView.as_view(),

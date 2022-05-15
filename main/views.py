@@ -5,6 +5,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils import timezone
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.generic import CreateView, ListView, TemplateView
 
 from datetime import timedelta
@@ -19,6 +20,7 @@ class IndexView(TemplateView):
     template_name = "main/index.html"
 
 
+# TODO: refactor to use SuccessURLAllowedHostsMixin in Django 4.1
 class RegisterView(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy("index")
@@ -32,6 +34,21 @@ class RegisterView(CreateView):
         )
         login(self.request, user)
         return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return self.get_redirect_url() or self.success_url
+
+    def get_redirect_url(self):
+        """Return the user-originating redirect URL if it's safe."""
+        redirect_to = self.request.POST.get(
+            "next", self.request.GET.get("next")
+        )
+        url_is_safe = url_has_allowed_host_and_scheme(
+            url=redirect_to,
+            allowed_hosts=self.request.get_host(),
+            require_https=self.request.is_secure(),
+        )
+        return redirect_to if url_is_safe else ""
 
 
 class CreateForumView(LoginRequiredMixin, CreateView):
