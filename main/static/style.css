@@ -1,0 +1,107 @@
+:root {
+    --anorum-blue: #07a;
+    --anorum-light-blue: #00a6ed;
+
+    --anorum-separation-medium: 15px;
+    --anorum-separation-large: 25px;
+  }
+
+html {
+    background-color: #fefefe;
+}
+
+body {
+    font-family: "Open Sans", Arial;
+    color: #454545;
+    font-size: 1em;
+    margin: 2em auto;
+    margin-top: 0;
+    max-width: 800px;
+    padding: 1em;
+}
+
+a {
+    color: var(--anorum-blue);
+}
+
+nav {
+    margin-bottom: 2em;
+    overflow: auto;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav a {
+    margin: 0.5rem;
+}
+
+textarea {
+    width: 100%;
+    resize: none;
+    font-family: "Open Sans", Arial;
+    font-size: 1em;
+    padding: 15px;
+    box-sizing: border-box;
+    border: 2px solid #bdbdbd;
+    border-radius: 6px;
+    outline: none;
+}
+
+.anorum-button {
+    width: 100%;
+    background-color: var(--anorum-blue);
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.vertical-separation-medium {
+    margin-bottom: var(--anorum-separation-medium);
+}
+
+.vertical-separation-large {
+    margin-bottom: var(--anorum-separation-large);
+}
+
+.post-container {
+    border: 3px solid var(--anorum-blue);
+    border-radius: 10px;
+}
+
+.post-header {
+    background-color: var(--anorum-blue);
+    color: white;
+    font-weight: bold;
+    padding: 1px 15px;
+    overflow: auto;
+}
+
+.post-content {
+    padding: 5px 10px;
+    overflow-wrap: break-word;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+/* For desktop */
+@media only screen and (min-width: 600px) {
+
+}

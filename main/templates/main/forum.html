@@ -6,16 +6,27 @@
 <main>
     <h1>{{ forum_name }}</h1>
 
-    <a href="{% url 'create_post' %}">Create new post</a>
+    <div class="vertical-separation-large">
+        <a href="{% url 'create_post' %}">Create new post</a>
+    </div>
 
-    <ul>
-        {% for post in post_list %}
-            <li>
-                <a href={% url 'post' post.id %}>
-                    #{{ post.id }} - {{ post.body }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+    {% for post in post_list %}
+    <div class="post-container vertical-separation-medium">
+        <div class="post-header">
+            <div class="float-left">
+                <p>{{ post.identity }}</p>
+            </div>
+            <div class="float-right">
+                <p>#{{ post.id }}</p>
+            </div>
+        </div>
+        <div class="post-content">
+            <p>{{ post.body | linebreaksbr }}</p>
+            <a href={% url 'post' post.id %}>
+                View replies
+            </a>
+        </div>
+    </div>
+    {% endfor %}
 </main>
 {% endblock %}

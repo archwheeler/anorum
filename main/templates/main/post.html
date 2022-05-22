@@ -4,13 +4,33 @@
 
 {% block content %}
 <main>
-    <p><b>#{{ parent_post.id }} - {{ parent_post.identity }}</b></p>
-    <p>{{ parent_post.body }}</p>
+    <div class="post-container vertical-separation-medium">
+        <div class="post-header">
+            <div class="float-left">
+                <p>{{ parent_post.identity }}</p>
+            </div>
+            <div class="float-right">
+                <p>#{{ parent_post.id }}</p>
+            </div>
+        </div>
+        <div class="post-content">
+            <p>{{ parent_post.body | linebreaksbr }}</p>
+        </div>
+    </div>
 
     {% for post in child_posts %}
-    <div>
-        <p><b>#{{ post.id }} - {{ post.identity }}</b></p>
-        <p>{{ post.body }}</p>
+    <div class="post-container vertical-separation-medium">
+        <div class="post-header">
+            <div class="float-left">
+                <p>{{ post.identity }}</p>
+            </div>
+            <div class="float-right">
+                <p>#{{ post.id }}</p>
+            </div>
+        </div>
+        <div class="post-content">
+            <p>{{ post.body | linebreaksbr }}</p>
+        </div>
     </div>
     {% endfor %}
 
@@ -22,7 +42,7 @@
             {{ form.body.errors }}
             {{ form.body }}
         </div>
-        <input type="submit" value="Reply">
+        <input type="submit" value="Reply" class="anorum-button">
     </form>
     {% else %}
     <p>

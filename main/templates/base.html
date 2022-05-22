@@ -9,17 +9,17 @@
 
     <body>
         <nav>
-            <ul>
-                <li><a href="{% url 'index' %}">anorum</a></li>
-            </ul>
+            <div class="float-left">
+                <a href="{% url 'index' %}">anorum</a>
+            </div>
             {% if not view.kwargs.hide_navbar_account %}
-            <ul>
+            <div class="float-right">
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'account' %}">{{ user.username }}</a></li>
+                <a href="{% url 'account' %}">{{ user.username }}</a>
                 {% else %}
-                <li><a href="{% url 'login' %}">Log in</a></li>
+                <a href="{% url 'login' %}">Log in</a>
                 {% endif %}
-            </ul>
+            </div>
             {% endif %}
         </nav>
 
