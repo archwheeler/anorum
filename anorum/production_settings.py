@@ -33,6 +33,6 @@ DATABASES = {
     }
 }
 
-
+SESSION_COOKIE_DOMAIN = ".anorum.com"
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
