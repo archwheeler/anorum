@@ -40,9 +40,7 @@ class RegisterView(CreateView):
 
     def get_redirect_url(self):
         """Return the user-originating redirect URL if it's safe."""
-        redirect_to = self.request.POST.get(
-            "next", self.request.GET.get("next")
-        )
+        redirect_to = self.request.POST.get("next", self.request.GET.get("next"))
         url_is_safe = url_has_allowed_host_and_scheme(
             url=redirect_to,
             allowed_hosts=self.request.get_host(),

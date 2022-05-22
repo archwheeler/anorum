@@ -7,7 +7,7 @@ import os
 from anorum.shared_settings import *
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -23,13 +23,13 @@ ALLOWED_HOSTS = [
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ['POSTGRESQL_DBNAME'],
-        'USER': os.environ['POSTGRESQL_USER'],
-        'PASSWORD': os.environ['POSTGRESQL_PASSWORD'],
-        'HOST': os.environ['POSTGRESQL_HOST'],
-        'PORT': os.environ['POSTGRESQL_PORT'],
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ["POSTGRESQL_DBNAME"],
+        "USER": os.environ["POSTGRESQL_USER"],
+        "PASSWORD": os.environ["POSTGRESQL_PASSWORD"],
+        "HOST": os.environ["POSTGRESQL_HOST"],
+        "PORT": os.environ["POSTGRESQL_PORT"],
     }
 }
 
