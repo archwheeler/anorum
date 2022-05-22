@@ -1,0 +1,29 @@
+# nginx.default
+
+server {
+    listen 80 default_server;
+    server_name _;
+
+    return 200 'health_check';
+}
+
+server {
+    listen 8030;
+    server_name anorum.com www.anorum.com;
+
+    return 301 https://anorum.com$request_uri;
+}
+
+server {
+    listen 8020;
+    server_name anorum.com www.anorum.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:8010;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+    location /static {
+        root /anorum/main;
+    }
+}
