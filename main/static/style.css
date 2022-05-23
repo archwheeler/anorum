@@ -8,7 +8,6 @@
 
 html {
     background-color: #fefefe;
-    font-size: 24px;
 }
 
 body {
@@ -39,15 +38,10 @@ nav ul li {
     display: inline;
 }
 
-nav a {
-    margin: 0.5rem;
-}
-
 textarea {
     width: 100%;
     resize: none;
     font-family: "Open Sans", Arial;
-    font-size: 1rem;
     padding: 15px;
     box-sizing: border-box;
     border: 2px solid #bdbdbd;
@@ -59,6 +53,7 @@ textarea {
     width: 100%;
     background-color: var(--anorum-blue);
     border: none;
+    border-radius: 10px;
     color: white;
     padding: 16px 32px;
     text-decoration: none;
@@ -84,7 +79,7 @@ textarea {
 .post-header {
     background-color: var(--anorum-blue);
     color: white;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: bold;
     padding: 1px 15px;
     overflow: auto;
@@ -103,15 +98,31 @@ textarea {
     float: right;
 }
 
-/* For tablets */
-@media only screen and (min-width: 500px) {
+@media (max-width: 480px) {
     html {
-        font-size: 18px;
+        font-size: 12px;
     }
 }
 
-/* For desktop */
-@media only screen and (min-width: 800px) {
+@media (min-width: 480px) {
+    html {
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 992px) {
+    html {
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 1200px) {
     html {
         font-size: 16px;
     }
