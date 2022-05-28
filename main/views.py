@@ -51,7 +51,7 @@ class RegisterView(CreateView):
 
 class CreateForumView(LoginRequiredMixin, CreateView):
     model = Forum
-    fields = ["name"]
+    fields = ["name", "description"]
     template_name = "main/create_forum.html"
 
     def form_valid(self, form):

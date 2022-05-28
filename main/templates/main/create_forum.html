@@ -14,6 +14,11 @@
             <label for="id_name">Name:</label>
             {{ form.name }}
         </div>
+        <div>
+            {{ form.description.errors }}
+            <label for="id_description">Description:</label>
+            {{ form.description }}
+        </div>
         <input type="submit" value="Create forum">
     </form>
 </main>
