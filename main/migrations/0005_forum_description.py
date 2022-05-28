@@ -6,14 +6,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0004_post_last_child_created_at'),
+        ("main", "0004_post_last_child_created_at"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='forum',
-            name='description',
-            field=models.CharField(default='The animal forum', max_length=100),
+            model_name="forum",
+            name="description",
+            field=models.CharField(default="The animal forum", max_length=100),
             preserve_default=False,
         ),
     ]
