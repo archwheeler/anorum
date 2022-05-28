@@ -1,9 +1,10 @@
 :root {
     --anorum-green: #097969;
+    --anorum-grey: #ccc;
 
     --anorum-separation-medium: 15px;
     --anorum-separation-large: 25px;
-  }
+}
 
 html {
     background-color: #fefefe;
@@ -43,7 +44,18 @@ textarea {
     font-family: "Open Sans", Arial;
     padding: 15px;
     box-sizing: border-box;
-    border: 2px solid #bdbdbd;
+    border: 2px solid var(--anorum-grey);
+    border-radius: 6px;
+    outline: none;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    display: inline-block;
+    margin: 8px 0;
+    padding: 8px 10px;
+    box-sizing: border-box;
+    border: 2px solid var(--anorum-grey);
     border-radius: 6px;
     outline: none;
 }
@@ -68,6 +80,10 @@ textarea {
 
 .vertical-separation-large {
     margin-bottom: var(--anorum-separation-large);
+}
+
+.font-size-medium {
+    font-size: 1.2em;
 }
 
 .post-container {

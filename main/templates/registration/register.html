@@ -4,28 +4,28 @@
 
 {% block content %}
 <main>
-    <h1>Register</h1>
+    <h1>Create an account</h1>
 
     <form method="post" action="{% url 'register' %}">
         {% csrf_token %}
         {{ form.non_field_errors }}
         <div>
             {{ form.username.errors }}
-            <label for="id_username">Username:</label>
+            <label for="id_username"><b>Username</b></label>
             {{ form.username }}
         </div>
         <div>
             {{ form.password1.errors }}
-            <label for="id_password1">Password:</label>
+            <label for="id_password1"><b>Password</b></label>
             {{ form.password1 }}
         </div>
         <div>
             {{ form.password2.errors }}
-            <label for="id_password2">Password confirmation:</label>
+            <label for="id_password2"><b>Password confirmation</b></label>
             {{ form.password2 }}
         </div>
         <input type="hidden" name="next" value="{{ request.GET.next }}">
-        <input type="submit" value="Register">
+        <input type="submit" value="Register" class="anorum-button">
     </form>
 </main>
 {% endblock %}

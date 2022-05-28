@@ -17,24 +17,24 @@
         {% endif %}
     {% endif %}
 
-    <form method="post" action="{% url 'login' %}">
+    <form method="post" action="{% url 'login' %}" class="vertical-separation-large">
         {% csrf_token %}
         {{ form.non_field_errors }}
         <div>
             {{ form.username.errors }}
-            <label for="id_username">Username:</label>
+            <label for="id_username"><b>Username</b></label>
             {{ form.username }}
         </div>
         <div>
             {{ form.password.errors }}
-            <label for="id_password">Password:</label>
+            <label for="id_password"><b>Password</b></label>
             {{ form.password }}
         </div>
         <input type="hidden" name="next" value="{{ next }}">
-        <input type="submit" value="Login">
+        <input type="submit" value="Login" class="anorum-button">
     </form>
 
-    <p>
+    <p class="font-size-medium">
         Don't have an account?
         {% if next %}
         <a href="{% url 'register' %}?next={{ next }}">Register here</a>.
