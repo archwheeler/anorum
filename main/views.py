@@ -77,7 +77,7 @@ class ForumView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["forum_name"] = self.kwargs["forum_name"]
+        context["forum"] = self.forum
         return context
 
 

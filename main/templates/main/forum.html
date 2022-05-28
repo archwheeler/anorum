@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ forum_name }}{% endblock %}
+{% block title %}{{ forum.name }}{% endblock %}
 
 {% block extra_head %}
 <meta name="description" content="{{ forum.description }}">
@@ -8,7 +8,7 @@
 
 {% block content %}
 <main>
-    <h1>{{ forum_name }}</h1>
+    <h1>{{ forum.name }}</h1>
 
     <div class="vertical-separation-large">
         <a href="{% url 'create_post' %}">Create new post</a>
