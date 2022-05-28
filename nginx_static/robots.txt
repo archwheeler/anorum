@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /post/
+Disallow: /login
+
+Sitemap: https://anorum.com/sitemap.xml

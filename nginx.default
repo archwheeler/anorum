@@ -26,4 +26,10 @@ server {
     location /static {
         root /anorum/main;
     }
+    location /robots.txt {
+        alias /anorum/nginx_static/robots.txt;
+    }
+    location /sitemap.xml {
+        alias /anorum/nginx_static/sitemap.xml;
+    }
 }
