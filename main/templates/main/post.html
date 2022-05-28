@@ -45,7 +45,7 @@
         <input type="submit" value="Reply" class="anorum-button">
     </form>
     {% else %}
-    <p>
+    <p class="font-size-medium">
         <a href="{% url 'login' %}?next={{ request.path }}">Log in</a>
         to reply.
     </p>
