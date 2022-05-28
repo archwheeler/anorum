@@ -78,7 +78,6 @@ textarea {
 .post-header {
     background-color: var(--anorum-green);
     color: white;
-    font-size: 0.9rem;
     font-weight: bold;
     padding: 1px 15px;
     overflow: auto;
