@@ -2,6 +2,10 @@
 
 {% block title %}{{ forum_name }}{% endblock %}
 
+{% block extra_head %}
+<meta name="description" content="{{ forum.description }}">
+{% endblock %}
+
 {% block content %}
 <main>
     <h1>{{ forum_name }}</h1>
