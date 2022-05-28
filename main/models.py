@@ -12,6 +12,7 @@ class User(AbstractUser):
 
 class Forum(models.Model):
     name = models.SlugField(unique=True, max_length=32)
+    description = models.CharField(max_length=100)
     owner = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
 
