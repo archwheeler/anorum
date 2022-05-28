@@ -1,6 +1,5 @@
 :root {
-    --anorum-blue: #07a;
-    --anorum-light-blue: #00a6ed;
+    --anorum-green: #097969;
 
     --anorum-separation-medium: 15px;
     --anorum-separation-large: 25px;
@@ -20,7 +19,7 @@ body {
 }
 
 a {
-    color: var(--anorum-blue);
+    color: var(--anorum-green);
 }
 
 nav {
@@ -51,7 +50,7 @@ textarea {
 
 .anorum-button {
     width: 100%;
-    background-color: var(--anorum-blue);
+    background-color: var(--anorum-green);
     border: none;
     border-radius: 10px;
     color: white;
@@ -72,12 +71,12 @@ textarea {
 }
 
 .post-container {
-    border: 3px solid var(--anorum-blue);
+    border: 3px solid var(--anorum-green);
     border-radius: 10px;
 }
 
 .post-header {
-    background-color: var(--anorum-blue);
+    background-color: var(--anorum-green);
     color: white;
     font-size: 0.9rem;
     font-weight: bold;
