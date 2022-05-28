@@ -27,6 +27,7 @@ class Post(models.Model):
     identity = models.CharField(max_length=64)
     identity_step_size = models.IntegerField(null=True)
     identity_count = models.IntegerField(null=True)
+    last_child_created_at = models.DateTimeField(null=True)
 
     def __str__(self):
         return self.body

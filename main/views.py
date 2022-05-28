@@ -73,7 +73,7 @@ class ForumView(ListView):
             forum=self.forum,
             parent__isnull=True,
             created_at__gte=timezone.now() - timedelta(days=1),
-        )
+        ).order_by("-last_child_created_at")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -94,6 +94,7 @@ class CreatePostView(LoginRequiredMixin, CreateView):
         parent_post = form.save(commit=False)
         parent_post.forum = self.forum
         parent_post.owner = self.request.user
+        parent_post.last_child_created_at = timezone.now()
 
         identity_step_size = randrange(len(IDENTITIES))
         identity = IDENTITIES[identity_step_size]
@@ -179,9 +180,12 @@ class PostView(CreateView):
         if user_identity is None:
             form.add_error(None, "Error occurred while creating comment")
             return super().form_invalid(form)
-        else:
+
+        with transaction.atomic():
             child_post.identity = user_identity.identity
             child_post.save()
+            self.parent_post.last_child_created_at = timezone.now()
+            self.parent_post.save()
 
         return HttpResponseRedirect(reverse_lazy("post", args=[self.parent_post.id]))
 
