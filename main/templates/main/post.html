@@ -45,15 +45,17 @@
     {% endfor %}
 
     {% if user.is_authenticated %}
-    <form method="post" action="{% url 'post' parent_post.id %}" autocomplete="off">
-        {% csrf_token %}
-        {{ form.non_field_errors }}
-        <div>
-            {{ form.body.errors }}
-            {{ form.body }}
-        </div>
-        <input type="submit" value="Reply" class="anorum-button">
-    </form>
+    <div class="reply-box">
+        <form method="post" action="{% url 'post' parent_post.id %}" autocomplete="off">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div>
+                {{ form.body.errors }}
+                {{ form.body }}
+            </div>
+            <input type="submit" value="Reply" class="anorum-button">
+        </form>
+    </div>
     {% else %}
     <p class="font-size-medium">
         <a href="{% url 'login' %}?next={{ request.path }}">Log in</a>

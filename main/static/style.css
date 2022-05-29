@@ -118,6 +118,16 @@ input[type=text], input[type=password] {
     float: right;
 }
 
+.reply-box {
+    position: sticky;
+    bottom: 0;
+    background-color: var(--anorum-white);
+}
+
+.reply-box textarea {
+    height: 20vh;
+}
+
 @media (max-width: 480px) {
     html {
         font-size: 12px;
