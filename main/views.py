@@ -62,6 +62,7 @@ class CreateForumView(LoginRequiredMixin, CreateView):
 
 
 class ForumView(ListView):
+    paginate_by = 10
     template_name = "main/forum.html"
 
     def dispatch(self, request, *args, **kwargs):

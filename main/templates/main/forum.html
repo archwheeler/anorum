@@ -14,23 +14,45 @@
         <a href="{% url 'create_post' %}">Create new post</a>
     </div>
 
-    {% for post in post_list %}
-    <div class="post-container vertical-separation-medium">
-        <div class="post-header">
-            <div class="float-left">
-                <p>{{ post.identity }}</p>
+    <div class="vertical-separation-large">
+        {% for post in post_list %}
+        <div class="post-container vertical-separation-medium">
+            <div class="post-header">
+                <div class="float-left">
+                    <p>{{ post.identity }}</p>
+                </div>
+                <div class="float-right">
+                    <p>#{{ post.id }}</p>
+                </div>
             </div>
-            <div class="float-right">
-                <p>#{{ post.id }}</p>
+            <div class="post-content">
+                <p>{{ post.body | linebreaksbr }}</p>
+                <a href={% url 'post' post.id %}>
+                    View replies
+                </a>
             </div>
         </div>
-        <div class="post-content">
-            <p>{{ post.body | linebreaksbr }}</p>
-            <a href={% url 'post' post.id %}>
-                View replies
-            </a>
-        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+
+    <div>
+        {% if page_obj.has_previous %}
+        <a
+            href="?page={{ page_obj.previous_page_number }}"
+            class="float-left"
+        >
+            Previous
+        </a>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+        <a
+            href="?page={{ page_obj.next_page_number }}"
+            class="float-right"
+        >
+            Next
+        </a>
+        {% endif %}
+    </div>
 </main>
 {% endblock %}
