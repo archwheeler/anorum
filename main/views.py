@@ -15,6 +15,8 @@ from main.forms import CustomUserCreationForm
 from main.identities import IDENTITIES
 from main.models import Forum, Post, UserIdentity
 
+MAX_POST_LINE_COUNT = 50
+
 # Create your views here.
 class IndexView(TemplateView):
     template_name = "main/index.html"
@@ -92,6 +94,14 @@ class CreatePostView(LoginRequiredMixin, CreateView):
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
+        line_count = form.cleaned_data["body"].count("\n")
+        if line_count > MAX_POST_LINE_COUNT:
+            form.add_error(
+                None,
+                f"Your post has {line_count} line breaks, but the maximum is {MAX_POST_LINE_COUNT}. Please reduce the number of line breaks in your post.",
+            )
+            return super().form_invalid(form)
+
         parent_post = form.save(commit=False)
         parent_post.forum = self.forum
         parent_post.owner = self.request.user
@@ -137,6 +147,14 @@ class PostView(CreateView):
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
+        line_count = form.cleaned_data["body"].count("\n")
+        if line_count > MAX_POST_LINE_COUNT:
+            form.add_error(
+                None,
+                f"Your post has {line_count} line breaks, but the maximum is {MAX_POST_LINE_COUNT}. Please reduce the number of line breaks in your post.",
+            )
+            return super().form_invalid(form)
+
         child_post = form.save(commit=False)
         child_post.forum = self.parent_post.forum
         child_post.owner = self.request.user
