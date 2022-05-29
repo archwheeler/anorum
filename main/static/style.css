@@ -99,6 +99,10 @@ input[type=text], input[type=password] {
     overflow: auto;
 }
 
+.post-header a {
+    color: white;
+}
+
 .post-content {
     padding: 5px 10px;
     overflow-wrap: break-word;

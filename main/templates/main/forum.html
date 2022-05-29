@@ -22,12 +22,14 @@
                     <p>{{ post.identity }}</p>
                 </div>
                 <div class="float-right">
-                    <p>#{{ post.id }}</p>
+                    <p>
+                        <a href="{% url 'post' post.id %}">#{{ post.id }}</a>
+                    </p>
                 </div>
             </div>
             <div class="post-content">
                 <p>{{ post.body | linebreaksbr }}</p>
-                <a href={% url 'post' post.id %}>
+                <a href="{% url 'post' post.id %}">
                     View replies
                 </a>
             </div>
