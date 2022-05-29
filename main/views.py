@@ -206,7 +206,9 @@ class PostView(CreateView):
             self.parent_post.last_child_created_at = timezone.now()
             self.parent_post.save()
 
-        return HttpResponseRedirect(reverse_lazy("post", args=[self.parent_post.id]))
+        return HttpResponseRedirect(
+            f"{reverse_lazy('post', args=[self.parent_post.id])}#{child_post.id}"
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
