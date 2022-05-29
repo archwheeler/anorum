@@ -4,7 +4,10 @@
 
 {% block content %}
 <main>
-    <div class="post-container vertical-separation-medium">
+    <div
+        class="post-container vertical-separation-medium"
+        id="{{ parent_post.id }}"
+    >
         <div class="post-header">
             <div class="float-left">
                 <p>{{ parent_post.identity }}</p>
@@ -19,7 +22,10 @@
     </div>
 
     {% for post in child_posts %}
-    <div class="post-container vertical-separation-medium">
+    <div
+        class="post-container vertical-separation-medium"
+        id="{{ post.id }}"
+    >
         <div class="post-header">
             <div class="float-left">
                 <p>{{ post.identity }}</p>
