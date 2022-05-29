@@ -1,18 +1,20 @@
 :root {
     --anorum-green: #097969;
+    --anorum-black: #454545;
     --anorum-grey: #ccc;
+    --anorum-white: #fefefe;
 
     --anorum-separation-medium: 15px;
     --anorum-separation-large: 25px;
 }
 
 html {
-    background-color: #fefefe;
+    background-color: var(--anorum-white);
 }
 
 body {
     font-family: "Open Sans", Arial;
-    color: #454545;
+    color: var(--anorum-black);
     margin: 2em auto;
     margin-top: 0;
     max-width: 800px;
