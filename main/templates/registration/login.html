@@ -4,30 +4,51 @@
 
 {% block content %}
 <main>
-    {% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
-    {% endif %}
-
     {% if next and user.is_authenticated %}
-    <p class="vertical-separation-large">
-        Your account ({{ user.username }}) doesn't have access to this page.
-        Please login with an account that has access.
-    </p>
+    <div class="error vertical-separation-large">
+        <p>
+            Your account ({{ user.username }}) doesn't have access to this page.
+            Please login with an account that has access.
+        </p>
+    </div>
     {% endif %}
 
     <form method="post" action="{% url 'login' %}" class="vertical-separation-large">
         {% csrf_token %}
-        {{ form.non_field_errors }}
+
+        {% if form.non_field_errors %}
+        <div class="error vertical-separation-medium">
+            {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+
         <div>
-            {{ form.username.errors }}
-            <label for="id_username"><b>Username</b></label>
+            <div class="vertical-separation-small">
+                <label for="id_username"><b>Username</b></label>
+            </div>
+
+            {% if form.username.errors %}
+            <div class="error">
+                {{ form.username.errors }}
+            </div>
+            {% endif %}
+
             {{ form.username }}
         </div>
         <div>
-            {{ form.password.errors }}
-            <label for="id_password"><b>Password</b></label>
+            <div class="vertical-separation-small">
+                <label for="id_password"><b>Password</b></label>
+            </div>
+
+            {% if form.password.errors %}
+            <div class="error">
+                {{ form.password.errors }}
+            </div>
+            {% endif %}
+
             {{ form.password }}
         </div>
+
         <input type="hidden" name="next" value="{{ next }}">
         <input type="submit" value="Login" class="anorum-button">
     </form>

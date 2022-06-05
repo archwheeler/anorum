@@ -3,7 +3,9 @@
     --anorum-black: #454545;
     --anorum-grey: #ccc;
     --anorum-white: #fefefe;
+    --anorum-red: #f57066;
 
+    --anorum-separation-small: 5px;
     --anorum-separation-medium: 15px;
     --anorum-separation-large: 25px;
 }
@@ -76,6 +78,10 @@ input[type=text], input[type=password] {
     cursor: pointer;
 }
 
+.vertical-separation-small {
+    margin-bottom: var(--anorum-separation-small);
+}
+
 .vertical-separation-medium {
     margin-bottom: var(--anorum-separation-medium);
 }
@@ -121,11 +127,23 @@ input[type=text], input[type=password] {
 .reply-box {
     position: sticky;
     bottom: 0;
+    padding-top: var(--anorum-separation-small);
+    border-radius: 5px 5px 0 0;
     background-color: var(--anorum-white);
 }
 
 .reply-box textarea {
     height: 20vh;
+}
+
+.error {
+    background-color: var(--anorum-red);
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 10px;
+    color: white;
+    padding: 1px;
+    font-weight: bold;
 }
 
 @media (max-width: 480px) {

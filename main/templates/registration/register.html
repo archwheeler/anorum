@@ -8,22 +8,53 @@
 
     <form method="post" action="{% url 'register' %}">
         {% csrf_token %}
-        {{ form.non_field_errors }}
+
+        {% if form.non_field_errors %}
+        <div class="error vertical-separation-medium">
+            {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+
         <div>
-            {{ form.username.errors }}
-            <label for="id_username"><b>Username</b></label>
+            <div class="vertical-separation-small">
+                <label for="id_username"><b>Username</b></label>
+            </div>
+
+            {% if form.username.errors %}
+            <div class="error">
+                {{ form.username.errors }}
+            </div>
+            {% endif %}
+
             {{ form.username }}
         </div>
         <div>
-            {{ form.password1.errors }}
-            <label for="id_password1"><b>Password</b></label>
+            <div class="vertical-separation-small">
+                <label for="id_password1"><b>Password</b></label>
+            </div>
+
+            {% if form.password1.errors %}
+            <div class="error">
+                {{ form.password1.errors }}
+            </div>
+            {% endif %}
+
             {{ form.password1 }}
         </div>
         <div>
-            {{ form.password2.errors }}
-            <label for="id_password2"><b>Password confirmation</b></label>
+            <div class="vertical-separation-small">
+                <label for="id_password2"><b>Password confirmation</b></label>
+            </div>
+
+            {% if form.password2.errors %}
+            <div class="error">
+                {{ form.password2.errors }}
+            </div>
+            {% endif %}
+
             {{ form.password2 }}
         </div>
+
         <input type="hidden" name="next" value="{{ request.GET.next }}">
         <input type="submit" value="Register" class="anorum-button">
     </form>

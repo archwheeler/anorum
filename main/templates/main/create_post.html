@@ -8,11 +8,23 @@
 
     <form method="post" action="{% url 'create_post' %}" autocomplete="off">
         {% csrf_token %}
-        {{ form.non_field_errors }}
+
+        {% if form.non_field_errors %}
+        <div class="error vertical-separation-medium">
+            {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+
         <div>
-            {{ form.body.errors }}
+            {% if form.body.errors %}
+            <div class="error vertical-separation-small">
+                {{ form.body.errors }}
+            </div>
+            {% endif %}
+
             {{ form.body }}
         </div>
+
         <input type="submit" value="Create" class="anorum-button">
     </form>
 </main>
