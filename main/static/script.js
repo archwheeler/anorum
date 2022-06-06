@@ -6,6 +6,6 @@ function onBodyLoad() {
         element.innerHTML = element.innerHTML.replace(
             regexForMentions,
             "<a href=https://anorum.com/mention/$2>$1</a>"
-        )
+        );
     }
 }
