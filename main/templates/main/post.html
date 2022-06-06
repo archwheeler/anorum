@@ -17,9 +17,15 @@
                     <p class="horizontal-separation-medium">
                         <a href="#{{ parent_post.id }}">#{{ parent_post.id }}</a>
                     </p>
+                    {% if user.is_authenticated %}
                     <p onclick="replyToPost({{ parent_post.id }})" class="clickable">
                         Reply
                     </p>
+                    {% else %}
+                    <p>
+                        <a href="{% url 'login' %}?next={{ request.path }}">Reply</a>
+                    </p>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -42,9 +48,15 @@
                     <p class="horizontal-separation-medium">
                         <a href="#{{ post.id }}">#{{ post.id }}</a>
                     </p>
+                    {% if user.is_authenticated %}
                     <p onclick="replyToPost({{ post.id }})" class="clickable">
                         Reply
                     </p>
+                    {% else %}
+                    <p>
+                        <a href="{% url 'login' %}?next={{ request.path }}">Reply</a>
+                    </p>
+                    {% endif %}
                 </div>
             </div>
         </div>
