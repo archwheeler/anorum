@@ -10,7 +10,7 @@
         {% endblock %}
     </head>
 
-    <body>
+    <body onload="onBodyLoad()">
         <nav class="font-size-medium">
             <div class="float-left">
                 <a href="{% url 'index' %}">anorum</a>
@@ -28,5 +28,7 @@
 
         {% block content %}
         {% endblock %}
+
+        <script src="{% static 'script.js' %}"></script> 
     </body>
 </html>
