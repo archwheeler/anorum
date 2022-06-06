@@ -90,8 +90,17 @@ input[type=text], input[type=password] {
     margin-bottom: var(--anorum-separation-large);
 }
 
+.horizontal-separation-medium {
+    margin-right: var(--anorum-separation-medium);
+}
+
 .font-size-medium {
     font-size: 1.2em;
+}
+
+.clickable {
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .post-container {
@@ -109,6 +118,10 @@ input[type=text], input[type=password] {
 
 .post-header a {
     color: white;
+}
+
+.post-header-items p {
+    display: inline-block;
 }
 
 .post-content {

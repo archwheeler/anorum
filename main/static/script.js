@@ -9,3 +9,15 @@ function onBodyLoad() {
         );
     }
 }
+
+function replyToPost(post_id) {
+    replyBox = document.getElementsByTagName("textarea")[0];
+
+    if (
+        replyBox.value.length > 0 &&
+        /\w/.test(replyBox.value[replyBox.value.length - 1])
+    ) {
+        replyBox.value += " ";
+    }
+    replyBox.value += `@${post_id} `;
+}

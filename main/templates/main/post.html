@@ -13,9 +13,14 @@
                 <p>{{ parent_post.identity }}</p>
             </div>
             <div class="float-right">
-                <p>
-                    <a href="#{{ parent_post.id }}">#{{ parent_post.id }}</a>
-                </p>
+                <div class="post-header-items">
+                    <p class="horizontal-separation-medium">
+                        <a href="#{{ parent_post.id }}">#{{ parent_post.id }}</a>
+                    </p>
+                    <p onclick="replyToPost({{ parent_post.id }})" class="clickable">
+                        Reply
+                    </p>
+                </div>
             </div>
         </div>
         <div class="post-content">
@@ -33,9 +38,14 @@
                 <p>{{ post.identity }}</p>
             </div>
             <div class="float-right">
-                <p>
-                    <a href="#{{ post.id }}">#{{ post.id }}</a>
-                </p>
+                <div class="post-header-items">
+                    <p class="horizontal-separation-medium">
+                        <a href="#{{ post.id }}">#{{ post.id }}</a>
+                    </p>
+                    <p onclick="replyToPost({{ post.id }})" class="clickable">
+                        Reply
+                    </p>
+                </div>
             </div>
         </div>
         <div class="post-content">
