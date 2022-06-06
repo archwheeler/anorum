@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.generic import CreateView, ListView, TemplateView
+from django.views.generic.base import RedirectView
 
 from datetime import timedelta
 from random import randrange
@@ -15,6 +16,7 @@ from main.forms import CustomUserCreationForm
 from main.identities import IDENTITIES
 from main.models import Forum, Post, UserIdentity
 
+POST_EXPIRE_TIME = timedelta(days=1)
 MAX_POST_LINE_COUNT = 50
 
 # Create your views here.
@@ -75,7 +77,7 @@ class ForumView(ListView):
         return Post.objects.filter(
             forum=self.forum,
             parent__isnull=True,
-            created_at__gte=timezone.now() - timedelta(days=1),
+            created_at__gte=timezone.now() - POST_EXPIRE_TIME,
         ).order_by("-last_child_created_at")
 
     def get_context_data(self, **kwargs):
@@ -220,3 +222,13 @@ class PostView(CreateView):
 
 class AccountView(LoginRequiredMixin, TemplateView):
     template_name = "registration/account.html"
+
+
+class PostRedirectView(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        post = get_object_or_404(Post, id=self.kwargs["post_id"])
+        parent_post = post.parent if post.parent else post
+
+        if parent_post.created_at < timezone.now() - POST_EXPIRE_TIME:
+            raise Http404
+        return reverse_lazy("post", args=[parent_post.id]) + f"#{post.id}"

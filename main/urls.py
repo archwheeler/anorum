@@ -7,6 +7,7 @@ from main.views import (
     CreatePostView,
     ForumView,
     IndexView,
+    PostRedirectView,
     PostView,
     RegisterView,
 )
@@ -22,6 +23,11 @@ urlpatterns = [
         PostView.as_view(),
         {"forum_name": "anorum"},
         name="post",
+    ),
+    path(
+        "mention/<int:post_id>/",
+        PostRedirectView.as_view(),
+        name="mention",
     ),
     # path("create/", CreateForumView.as_view(), name="create_forum"),
     # path("a/<slug:forum_name>/", ForumView.as_view(), name="forum"),
