@@ -12,7 +12,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Add reply button functionality
         replyButton = post.getElementsByClassName("post-reply")[0];
-        replyButton.addEventListener('click', _ => replyToPost(post.id));
+        if (typeof replyButton !== 'undefined') {
+            replyButton.addEventListener('click', _ => replyToPost(post.id));
+        }
     }
 });
 
