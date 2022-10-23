@@ -15,6 +15,5 @@ RUN pip install -r requirements.txt
 
 # start server
 EXPOSE 80
-EXPOSE 8020
-EXPOSE 8030
+EXPOSE 443
 CMD ["/anorum/start_server.sh"]

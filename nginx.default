@@ -1,21 +1,14 @@
 # nginx.default
 
 server {
-    listen 80 default_server;
-    server_name _;
-
-    return 200 'health_check';
-}
-
-server {
-    listen 8030;
+    listen 80;
     server_name anorum.com www.anorum.com;
 
     return 301 https://anorum.com$request_uri;
 }
 
 server {
-    listen 8020;
+    listen 443;
     server_name anorum.com www.anorum.com;
 
     add_header Content-Security-Policy "default-src 'none'; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'self';" always;
